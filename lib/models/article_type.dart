@@ -1,5 +1,6 @@
 enum ArticleType {unknown, cosmetic}
 
+
 ArticleType getTypeFromName(String name) {
   ArticleType.values.forEach((type) {
     if (type.toString().split('.')[1] == name) {
