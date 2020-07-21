@@ -17,6 +17,7 @@ dependencies:
   google_fonts: ^1.1.0
   connectivity: ^0.4.9
   shared_preferences: ^0.5.8
+  persistent_bottom_nav_bar: ^2.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:growapp/models/login_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,6 +12,8 @@ class User extends ChangeNotifier {
   String _password = "password";
   String _email = "email";
   String _phone = "No number";
+  String _firstname = "Unknow";
+  String _lastname = "";
   DateTime _date = DateTime.now();
 
   Future<bool> loadFromStorage() async {
@@ -27,25 +30,33 @@ class User extends ChangeNotifier {
     return (true);
   }
 
-  Future<bool> login() async {
-
+  Future<LoginStatus> login() async {
     var params = {
       "email": email,
       "password": password,
     };
-
     final uri = Uri.http("192.168.0.26:3030", '/users', params);
-    var jsonResponse = await http.get(uri).then((value) => value.body);
-    var json = jsonDecode(jsonResponse);
+    var jsonResponse = await http.get(uri)
+        .then((value) => value)
+        .catchError((error) {
+          print("Error while connecting !");
+    });
+    if (jsonResponse == null)
+      return LoginStatus.api_connection_error;
+    print("response: ${jsonResponse.statusCode}");
+    var json = jsonDecode(jsonResponse.body);
 
     var error = json['error'];
     var status = json['status'];
     if (error != null || status == 400)
-      return (false);
+      return (LoginStatus.api_request_error);
 
     _id = json['id'];
     _date = DateTime.parse(json['date']).toLocal();
-    return (true);
+    _firstname = json['firstname'];
+    _lastname = json['lastname'];
+    _phone = json['phone'];
+    return (LoginStatus.success);
   }
 
   Future<bool> exists() async {
@@ -73,4 +84,6 @@ class User extends ChangeNotifier {
   String get id => _id;
   DateTime get date => _date;
   String get phone => _phone;
+  String get lastName => _lastname;
+  String get firstName => _firstname;
 }
