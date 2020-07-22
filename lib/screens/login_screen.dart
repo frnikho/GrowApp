@@ -1,13 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:growapp/models/app_data.dart';
 import 'package:growapp/models/login_status.dart';
-import 'package:growapp/screens/home_screen.dart';
 import 'package:growapp/screens/user_screen.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 const Duration sd = Duration(milliseconds: 1500);

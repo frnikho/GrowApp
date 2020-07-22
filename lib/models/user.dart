@@ -16,18 +16,19 @@ class User extends ChangeNotifier {
   String _lastname = "";
   DateTime _date = DateTime.now();
 
-  Future<bool> loadFromStorage() async {
+  Future<bool> loadFromStorage(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String id = prefs.getString("user_id");
-    String username = prefs.getString("username");
-    String password = prefs.getString("password");
-    String email = prefs.getString("email");
-    if (id == null || username == null || password == null || email == null)
-      return (false);
-    this._id = id;
-    this._email = email;
-    this._password = password;
-    return (true);
+    String _id = prefs.getString("user_id");
+    print(_id);
+  }
+
+  void registerIntoStorage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("user_id", _id);
+  }
+
+  Future<bool> refresh() async {
+
   }
 
   Future<LoginStatus> login() async {

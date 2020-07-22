@@ -5,6 +5,7 @@ import 'package:growapp/screens/home_screen.dart';
 import 'package:growapp/screens/login_screen.dart';
 import 'package:growapp/screens/user_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,8 +23,29 @@ class MyApp extends StatelessWidget {
           HomeScreen.id: (_) => HomeScreen(),
           UserScreen.id: (_) => UserScreen(),
         },
-        home: LoginScreen(),
+        home: Consumer<AppData>(
+          builder: (context, data, child) {
+            return LoginOrHomeScreen(data);
+          },
+        ),
       ),
+    );
+  }
+}
+
+class LoginOrHomeScreen extends StatelessWidget {
+
+  final AppData data;
+
+  LoginOrHomeScreen(this.data);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<bool>(
+      future: data.user.loadFromStorage(context),
+      builder: (context, snap) {
+
+      },
     );
   }
 }
