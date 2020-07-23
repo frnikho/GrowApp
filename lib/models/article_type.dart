@@ -1,4 +1,4 @@
-enum ArticleType {unknown, cosmetic}
+enum ArticleType {unknown, sativa, indica, ruderalis, hybrid}
 
 
 ArticleType getTypeFromName(String name) {
@@ -16,4 +16,8 @@ ArticleType getTypeFromId(int id) {
       return (ArticleType.values[i]);
   }
   return (ArticleType.values[0]);
+}
+
+String getTypeName(ArticleType type) {
+  return type.toString().split('.')[1];
 }

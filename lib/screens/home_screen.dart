@@ -2,12 +2,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:growapp/models/app_data.dart';
+import 'package:growapp/models/article.dart';
+import 'package:growapp/models/article_type.dart';
 import 'package:growapp/widgets/store_bottom_navigation_bar.dart';
+import 'package:growapp/widgets/suggestion_slider.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
 
   static String id = "HomeScreen";
+
+  _buildSuggestionArticles() async {
+    List<Article> articles = [];
+    articles.add(Article(
+      "uuid",
+      "OuiLadot",
+      "oui peut être un peu beaucoup en fait non",
+      16.50,
+      -1,
+      ArticleType.hybrid,
+      Color(0xFFfac8c2),
+      DateTime.now(),
+      DateTime.now(),
+      "http://192.168.1.16:3030/bank/amnesia_head.png"
+      ));
+
+
+    return articles;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +77,12 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Container(
                     height: 300,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return BestSellersCard(index: index);
+                    child: FutureBuilder(
+                      future: _buildSuggestionArticles(),
+                      builder: (context, snap) {
+                        if (snap.hasData)
+                          return SuggestionList(articles: snap.data);
+                        return Center(child: CircularProgressIndicator());
                       },
                     ),
                   ),
@@ -68,41 +92,6 @@ class HomeScreen extends StatelessWidget {
           ),
         );
       }
-    );
-  }
-}
-
-class BestSellersCard extends StatelessWidget {
-
-  final int index;
-
-  const BestSellersCard({Key key, this.index}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            width: 250,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(15)),
-            ),
-          ),
-          Positioned(
-            child: Container(
-              width: 250,
-              height: 220,
-              decoration: BoxDecoration(
-                  color: Color(0xFFfac8c2),
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), topLeft: Radius.circular(15), topRight: Radius.circular(15))
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
