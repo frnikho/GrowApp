@@ -11,10 +11,10 @@ class AppData extends ChangeNotifier {
     _user = User();
   }
 
-  User get user => _user;
-
   void loadArticles() async {
 
   }
+
+  User get user => _user;
 
 }

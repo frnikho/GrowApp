@@ -18,17 +18,42 @@ class User extends ChangeNotifier {
 
   Future<bool> loadFromStorage(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String _id = prefs.getString("user_id");
-    print(_id);
+    String email = prefs.getString("user_email");
+    String passwd = prefs.getString("user_password");
+    if (email == null || passwd == null)
+      return false;
+    _email = email;
+    _password = passwd;
+    await refresh(email, passwd);
+    return true;
   }
 
-  void registerIntoStorage() async {
+  Future<void> registerIntoStorage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("user_id", _id);
+    prefs.setString("user_email", _email);
+    prefs.setString("user_password", _password);
   }
 
-  Future<bool> refresh() async {
-
+  Future<bool> refresh(String userEmail, String userPassword) async {
+    var params = {
+      "email": userEmail,
+      "password": userPassword,
+    };
+    final uri = Uri.http('192.168.0.13:3030', '/users', params);
+    var jsonResponse = await http.get(uri)
+        .then((value) => value)
+        .catchError((error) {
+      print("Error while connecting !");
+    });
+    if (jsonResponse.statusCode != 200 || jsonResponse.body == null)
+      return false;
+    var json = jsonDecode(jsonResponse.body);
+    _id = json['id'];
+    _date = DateTime.parse(json['date']).toLocal();
+    _firstname = json['firstname'];
+    _lastname = json['lastname'];
+    _phone = json['phone'];
+    return true;
   }
 
   Future<LoginStatus> login() async {
@@ -36,7 +61,7 @@ class User extends ChangeNotifier {
       "email": email,
       "password": password,
     };
-    final uri = Uri.http("192.168.0.26:3030", '/users', params);
+    final uri = Uri.http("192.168.0.13:3030", '/users', params);
     var jsonResponse = await http.get(uri)
         .then((value) => value)
         .catchError((error) {
@@ -57,6 +82,7 @@ class User extends ChangeNotifier {
     _firstname = json['firstname'];
     _lastname = json['lastname'];
     _phone = json['phone'];
+    await registerIntoStorage();
     return (LoginStatus.success);
   }
 

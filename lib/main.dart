@@ -7,6 +7,9 @@ import 'package:growapp/screens/user_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'screens/home_screen.dart';
+import 'screens/login_screen.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -44,7 +47,12 @@ class LoginOrHomeScreen extends StatelessWidget {
     return FutureBuilder<bool>(
       future: data.user.loadFromStorage(context),
       builder: (context, snap) {
-
+        if (snap.hasData && snap.data == false) {
+          return LoginScreen();
+        } else if (snap.hasData && snap.data == true) {
+          return HomeScreen();
+        }
+        return Scaffold(body: Center(child: CircularProgressIndicator()));
       },
     );
   }
