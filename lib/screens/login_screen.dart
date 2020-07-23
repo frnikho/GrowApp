@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:growapp/models/app_data.dart';
 import 'package:growapp/models/login_status.dart';
+import 'package:growapp/screens/home_screen.dart';
 import 'package:growapp/screens/user_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,7 @@ class LoginScreen extends StatelessWidget {
     if (result == LoginStatus.api_request_error)
       status = SnackBar(duration: sd, content: Text("Please check your email and your password"));
     if (result == LoginStatus.success) {
-      Navigator.pushReplacementNamed(_, UserScreen.id);
+      Navigator.pushReplacementNamed(_, HomeScreen.id);
       return;
     }
     Scaffold.of(_).showSnackBar(status);

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:growapp/models/app_data.dart';
+import 'package:growapp/screens/login_screen.dart';
 import 'package:growapp/widgets/store_bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +42,13 @@ class UserScreen extends StatelessWidget {
                                 },
                                 child: Icon(CupertinoIcons.back, size: 26, color: primary)
                               ),
-                              Icon(Icons.menu, size: 24, color: primary),
+                              GestureDetector(
+                                onTap: () async {
+                                  await data.user.logout();
+                                  Navigator.pushReplacementNamed(context, LoginScreen.id);
+                                },
+                                child: Icon(FontAwesomeIcons.signOutAlt, size: 24, color: primary)
+                              ),
                             ],
                           ),
                           Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:growapp/models/app_data.dart';
 import 'package:growapp/models/article.dart';
 import 'package:growapp/models/article_type.dart';
@@ -26,6 +27,19 @@ class HomeScreen extends StatelessWidget {
       DateTime.now(),
       "http://192.168.1.16:3030/bank/amnesia_head.png"
       ));
+
+    articles.add(Article(
+        "uuid",
+        "OuiLadot",
+        "oui peut être un peu beaucoup en fait non",
+        16.50,
+        -1,
+        ArticleType.hybrid,
+        Colors.blueAccent,
+        DateTime.now(),
+        DateTime.now(),
+        "http://192.168.1.16:3030/bank/amnesia_head.png"
+    ));
 
 
     return articles;
@@ -72,6 +86,16 @@ class HomeScreen extends StatelessWidget {
                           child: Icon(FontAwesomeIcons.tag, size: 16, color: Colors.black),
                           backgroundColor: Colors.black.withOpacity(0.05),
                         )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                    child: Row(
+                      children: <Widget>[
+                        Text("Best Sellers", style: GoogleFonts.almarai(fontSize: 24)),
+                        SizedBox(width: 10),
+                        Text("Daily Suggestion", style: GoogleFonts.almarai(fontSize: 16, color: Colors.grey)),
                       ],
                     ),
                   ),

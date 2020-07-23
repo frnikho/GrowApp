@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:growapp/models/app_data.dart';
 import 'package:growapp/screens/home_screen.dart';
 import 'package:growapp/screens/login_screen.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return ChangeNotifierProvider<AppData>(
       create: (context) => AppData(),
       child: MaterialApp(
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
           MyApp.id: (_) => MyApp(),
           HomeScreen.id: (_) => HomeScreen(),
           UserScreen.id: (_) => UserScreen(),
+          LoginScreen.id: (_) => LoginScreen(),
         },
         home: Consumer<AppData>(
           builder: (context, data, child) {
