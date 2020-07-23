@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:growapp/models/app_data.dart';
+import 'package:growapp/widgets/store_bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 class UserScreen extends StatelessWidget {
@@ -12,6 +13,7 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Color primary = Colors.black.withOpacity(0.8);
     return Scaffold(
+      bottomNavigationBar: StoreBottomNavigationBar(currentIndex: 2),
       backgroundColor: Colors.white.withOpacity(0.9),
       body: SafeArea(
         child: Consumer<AppData>(

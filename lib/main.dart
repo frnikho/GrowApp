@@ -5,7 +5,6 @@ import 'package:growapp/screens/home_screen.dart';
 import 'package:growapp/screens/login_screen.dart';
 import 'package:growapp/screens/user_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
@@ -21,6 +20,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<AppData>(
       create: (context) => AppData(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         routes: {
           MyApp.id: (_) => MyApp(),
           HomeScreen.id: (_) => HomeScreen(),

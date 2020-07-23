@@ -5,7 +5,7 @@ import 'package:growapp/models/login_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-const String localAddress = "www.192.168.0.26.com";
+const String localAddress = "www.192.168.1.16.com";
 
 class User extends ChangeNotifier {
   String _id = "0";
@@ -39,7 +39,7 @@ class User extends ChangeNotifier {
       "email": userEmail,
       "password": userPassword,
     };
-    final uri = Uri.http('192.168.0.13:3030', '/users', params);
+    final uri = Uri.http('192.168.1.16:3030', '/users', params);
     var jsonResponse = await http.get(uri)
         .then((value) => value)
         .catchError((error) {
@@ -94,6 +94,7 @@ class User extends ChangeNotifier {
     if (_id.isEmpty || _id == null || _password.isEmpty || _password == null || _email.isEmpty || _email == null) {
       return (false);
     }
+    return (true);
   }
 
   void setEmail(String email) {
