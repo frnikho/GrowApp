@@ -1,23 +1,14 @@
 enum ArticleType {unknown, sativa, indica, ruderalis, hybrid}
 
-
-ArticleType getTypeFromName(String name) {
-  ArticleType.values.forEach((type) {
-    if (type.toString().split('.')[1] == name) {
-      return (type);
-    }
-  });
-  return (ArticleType.unknown);
-}
-
-ArticleType getTypeFromId(int id) {
-  for (int i = 0; i < ArticleType.values.length; i++) {
-    if (id == i)
-      return (ArticleType.values[i]);
-  }
-  return (ArticleType.values[0]);
-}
-
 String getTypeName(ArticleType type) {
   return type.toString().split('.')[1];
+}
+
+ArticleType getTypeFromName(String name) {
+  for (ArticleType type in ArticleType.values) {
+    if (getTypeName(type) == name) {
+      return (type);
+    }
+  }
+  return (ArticleType.unknown);
 }

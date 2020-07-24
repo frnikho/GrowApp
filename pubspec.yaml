@@ -15,15 +15,10 @@ dependencies:
   provider: ^4.3.0
   outline_material_icons: ^0.1.1
   google_fonts: ^1.1.0
-  connectivity: ^0.4.9
   shared_preferences: ^0.5.8
-  persistent_bottom_nav_bar: ^2.0.5
   animations: ^1.1.1
-  shimmer: ^1.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
 flutter:
   uses-material-design: true
-  assets:
-    - assets/

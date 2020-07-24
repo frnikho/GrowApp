@@ -1,19 +1,20 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:growapp/models/login_status.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 const String ip = "192.168.1.16";
+
+enum LoginStatus {success, api_connection_error, api_request_error, bad_email_format, bad_password_format}
 
 class User extends ChangeNotifier {
   String _id = "0";
   String _password = "password";
   String _email = "email";
   String _phone = "No number";
-  String _firstname = "Unknow";
-  String _lastname = "";
+  String _firstName = "Unknow";
+  String _lastName = "";
   DateTime _date = DateTime.now();
 
   Future<bool> loadFromStorage(BuildContext context) async {
@@ -50,8 +51,8 @@ class User extends ChangeNotifier {
     var json = jsonDecode(jsonResponse.body);
     _id = json['id'];
     _date = DateTime.parse(json['date']).toLocal();
-    _firstname = json['firstname'];
-    _lastname = json['lastname'];
+    _firstName = json['firstname'];
+    _lastName = json['lastname'];
     _phone = json['phone'];
     return true;
   }
@@ -84,22 +85,11 @@ class User extends ChangeNotifier {
 
     _id = json['id'];
     _date = DateTime.parse(json['date']).toLocal();
-    _firstname = json['firstname'];
-    _lastname = json['lastname'];
+    _firstName = json['firstname'];
+    _lastName = json['lastname'];
     _phone = json['phone'];
     await registerIntoStorage();
     return (LoginStatus.success);
-  }
-
-  Future<bool> exists() async {
-    return (true);
-  }
-
-  Future<bool> register() async {
-    if (_id.isEmpty || _id == null || _password.isEmpty || _password == null || _email.isEmpty || _email == null) {
-      return (false);
-    }
-    return (true);
   }
 
   void setEmail(String email) {
@@ -117,6 +107,6 @@ class User extends ChangeNotifier {
   String get id => _id;
   DateTime get date => _date;
   String get phone => _phone;
-  String get lastName => _lastname;
-  String get firstName => _firstname;
+  String get lastName => _lastName;
+  String get firstName => _firstName;
 }

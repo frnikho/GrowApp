@@ -2,9 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:growapp/models/app_data.dart';
-import 'package:growapp/models/login_status.dart';
+import 'package:growapp/models/user.dart';
 import 'package:growapp/screens/home_screen.dart';
-import 'package:growapp/screens/user_screen.dart';
 import 'package:provider/provider.dart';
 
 const Duration sd = Duration(milliseconds: 1500);
@@ -140,37 +139,3 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class ActionButtonWithIcon extends StatelessWidget {
-
-  final Icon icon;
-  final String name;
-
-  ActionButtonWithIcon({@required this.name, @required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      height: 70,
-      decoration: BoxDecoration(
-        color: Color(0xFF2d93e8),
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(8),
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              color: Colors.white
-            ),
-            child: icon,
-          ),
-          SizedBox(width: 40),
-          Text("$name", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 16)),
-        ],
-      ),
-    );
-  }
-}
