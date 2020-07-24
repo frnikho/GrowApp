@@ -42,7 +42,16 @@ class ArticleScreen extends StatelessWidget {
                     Positioned(
                       top: 10,
                       left: 10,
-                      child: Icon(CupertinoIcons.back)
+                      child: CircleAvatar(
+                        foregroundColor: Colors.black,
+                        backgroundColor: Colors.transparent,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(CupertinoIcons.back)
+                        ),
+                      )
                     ),
                     Positioned(
                       top: 10,
@@ -58,28 +67,46 @@ class ArticleScreen extends StatelessWidget {
             ),
             Expanded(
               flex: 4,
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    Stack(
-                      children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.purple.withOpacity(0.05),
-                              borderRadius: BorderRadius.all(Radius.circular(22))
-                          ),
-                          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-                          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                          child: Text("${getTypeName(article.type)}", style: GoogleFonts.almarai(color: Colors.deepPurple.withOpacity(0.6), fontSize: 17),),
+              child: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.purple.withOpacity(0.05),
+                            borderRadius: BorderRadius.all(Radius.circular(22))
                         ),
-                        Positioned(
-                            bottom: 0,
-                            child: Container(child: Text("${article.name}", style: GoogleFonts.almarai(fontSize: 32)))
-                        )
-                      ],
+                        padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Text("${getTypeName(article.type)}", style: GoogleFonts.almarai(color: Colors.deepPurple.withOpacity(0.6), fontSize: 17)),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Text("${article.name}", style: GoogleFonts.almarai(fontSize: 32, fontWeight: FontWeight.bold))
+                      ),
+                      SizedBox(height: 20),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Text("${article.description}")
+                      )
+                    ],
+                  ),
+                  Positioned(
+                    right: 0,
+                    top: 45,
+                    child: Container(
+                      height: 50,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
+                        color: Colors.orangeAccent.withOpacity(0.9)
+                      ),
+                      child: Center(child: Text("\$${article.price.toStringAsFixed(2)}", style: GoogleFonts.almarai(fontSize: 20),)),
                     ),
-                  ],
-                ),
+                  )
+                ],
               )
             ),
             Expanded(

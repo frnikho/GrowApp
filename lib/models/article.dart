@@ -10,8 +10,8 @@ class Article {
   int _quota = -1;
   ArticleType _type = ArticleType.unknown;
   Color _primary = Colors.white;
-  DateTime _created_at = DateTime.now();
-  DateTime _updated_at = DateTime.now();
+  DateTime _createdAt = DateTime.now();
+  DateTime _updatedAt = DateTime.now();
   String _imageUrl = "null";
 
   Article(
@@ -22,8 +22,8 @@ class Article {
       this._quota,
       this._type,
       this._primary,
-      this._created_at,
-      this._updated_at,
+      this._createdAt,
+      this._updatedAt,
       this._imageUrl
   );
 
@@ -49,6 +49,7 @@ class Article {
   double get price => _price;
   String get name => _name;
   String get id => _id;
-  DateTime get updatedAt => _updated_at;
-  DateTime get createdAt => _created_at;
+  DateTime get updatedAt => _updatedAt;
+  DateTime get createdAt => _createdAt;
+  String get description => _description;
 }
