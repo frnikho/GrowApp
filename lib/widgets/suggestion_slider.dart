@@ -58,7 +58,10 @@ class SuggestionCard extends StatelessWidget {
                     color: article.primary.withOpacity(0.8),
                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), topLeft: Radius.circular(15), topRight: Radius.circular(15))
                 ),
-                child: Image.network(article.imageUrl),
+                child: Hero(
+                  tag: article,
+                  child: Image.network(article.imageUrl)
+                ),
               ),
             ),
             Positioned(

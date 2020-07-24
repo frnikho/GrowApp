@@ -35,10 +35,10 @@ class Article {
       json['price'],
       json['quota'],
       getTypeFromName(json['type']),
-      json['primary_color'],
+      Colors.blueAccent,
       DateTime.parse(json['created_at']),
       DateTime.parse(json['updated_at']),
-      json['image_url']
+      "http://192.168.1.16:3030" + json['image_url']
     );
   }
 

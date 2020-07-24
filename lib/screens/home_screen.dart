@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:growapp/models/app_data.dart';
 import 'package:growapp/models/article.dart';
-import 'package:growapp/models/article_type.dart';
 import 'package:growapp/widgets/store_bottom_navigation_bar.dart';
 import 'package:growapp/widgets/suggestion_slider.dart';
 import 'package:provider/provider.dart';
@@ -13,36 +12,9 @@ class HomeScreen extends StatelessWidget {
 
   static String id = "HomeScreen";
 
-  _buildSuggestionArticles() async {
-    List<Article> articles = [];
-    articles.add(Article(
-      "uuid",
-      "OuiLadot",
-      "oui peut être un peu beaucoup en fait non",
-      16.50,
-      -1,
-      ArticleType.hybrid,
-      Color(0xFFfac8c2),
-      DateTime.now(),
-      DateTime.now(),
-      "http://192.168.1.16:3030/bank/amnesia_head.png"
-      ));
-
-    articles.add(Article(
-        "uuid",
-        "OuiLadot",
-        "oui peut être un peu beaucoup en fait non",
-        16.50,
-        -1,
-        ArticleType.hybrid,
-        Colors.blueAccent,
-        DateTime.now(),
-        DateTime.now(),
-        "http://192.168.1.16:3030/bank/amnesia_head.png"
-    ));
-
-
-    return articles;
+  _buildSuggestionArticles(AppData data) async {
+    List<Article> articles = await data.loadSuggestionArticles();
+    return (articles);
   }
 
   @override
@@ -102,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                   Container(
                     height: 300,
                     child: FutureBuilder(
-                      future: _buildSuggestionArticles(),
+                      future: _buildSuggestionArticles(data),
                       builder: (context, snap) {
                         if (snap.hasData)
                           return SuggestionList(articles: snap.data);

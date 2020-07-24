@@ -1,5 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:growapp/models/article.dart';
+import 'package:growapp/models/article_type.dart';
 
 class ArticleScreen extends StatelessWidget {
 
@@ -15,6 +20,7 @@ class ArticleScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(
               flex: 4,
@@ -23,18 +29,58 @@ class ArticleScreen extends StatelessWidget {
                 child: Stack(
                   children: <Widget>[
                     Container(
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.blueAccent,
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                       ),
+                      child: Hero(
+                        tag: article,
+                        child: Image.network(article.imageUrl),
+                      ),
                     ),
+                    Positioned(
+                      top: 10,
+                      left: 10,
+                      child: Icon(CupertinoIcons.back)
+                    ),
+                    Positioned(
+                      top: 10,
+                      right: 10,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.menu, color: Colors.black),
+                      ),
+                    )
                   ],
                 ),
               ),
             ),
             Expanded(
               flex: 4,
-              child: Container()
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.purple.withOpacity(0.05),
+                              borderRadius: BorderRadius.all(Radius.circular(22))
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          child: Text("${getTypeName(article.type)}", style: GoogleFonts.almarai(color: Colors.deepPurple.withOpacity(0.6), fontSize: 17),),
+                        ),
+                        Positioned(
+                            bottom: 0,
+                            child: Container(child: Text("${article.name}", style: GoogleFonts.almarai(fontSize: 32)))
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              )
             ),
             Expanded(
               flex: 2,
