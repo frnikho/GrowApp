@@ -16,9 +16,16 @@ class MyApp extends StatelessWidget {
 
   static String id = "MainAppScreen";
 
+  void _init() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    _init();
     return ChangeNotifierProvider<AppData>(
       create: (context) => AppData(),
       child: MaterialApp(
@@ -47,16 +54,18 @@ class LoginOrHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
-      future: data.user.loadFromStorage(context),
-      builder: (context, snap) {
-        if (snap.hasData && snap.data == false) {
-          return LoginScreen();
-        } else if (snap.hasData && snap.data == true) {
-          return HomeScreen();
-        }
-        return Scaffold(body: Center(child: CircularProgressIndicator()));
-      },
+    return Scaffold(
+      body: FutureBuilder<bool>(
+        future: data.user.loadFromStorage(context),
+        builder: (context, snap) {
+          if (snap.hasData && snap.data == false) {
+            return LoginScreen();
+          } else if (snap.hasData && snap.data == true) {
+            return HomeScreen();
+          }
+          return Scaffold(body: Center(child: CircularProgressIndicator()));
+        },
+      ),
     );
   }
 }

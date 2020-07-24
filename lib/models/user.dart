@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-const String ip = "192.168.1.16";
+const String ip = "192.168.0.26";
 
 enum LoginStatus {success, api_connection_error, api_request_error, bad_email_format, bad_password_format}
 
@@ -25,8 +26,8 @@ class User extends ChangeNotifier {
       return false;
     _email = email;
     _password = passwd;
-    await refresh(email, passwd);
-    return true;
+    bool status = await refresh(email, passwd, context);
+    return (status);
   }
 
   Future<void> registerIntoStorage() async {
@@ -35,7 +36,7 @@ class User extends ChangeNotifier {
     prefs.setString("user_password", _password);
   }
 
-  Future<bool> refresh(String userEmail, String userPassword) async {
+  Future<bool> refresh(String userEmail, String userPassword, BuildContext context) async {
     var params = {
       "email": userEmail,
       "password": userPassword,
@@ -45,6 +46,7 @@ class User extends ChangeNotifier {
         .then((value) => value)
         .catchError((error) {
       print("Error while connecting !");
+      return (false);
     });
     if (jsonResponse.statusCode != 200 || jsonResponse.body == null)
       return false;

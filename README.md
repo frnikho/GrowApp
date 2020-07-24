@@ -49,3 +49,4 @@ $ flutter build ios
 | google_fonts | https://pub.dev/packages/google_fonts |
 | shared_preferences | https://pub.dev/packages/shared_preferences |
 | animations | https://pub.dev/packages/animations |
+| url_launcher | https://pub.dev/packages/url_launcher |

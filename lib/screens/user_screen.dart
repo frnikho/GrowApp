@@ -4,7 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:growapp/models/app_data.dart';
 import 'package:growapp/screens/login_screen.dart';
 import 'package:growapp/widgets/store_bottom_navigation_bar.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UserScreen extends StatelessWidget {
 
@@ -81,12 +83,38 @@ class UserScreen extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                            child: Row(
-                              children: [
-                                Icon(FontAwesomeIcons.phoneAlt, color: primary),
-                                SizedBox(width: 10),
-                                Text('${data.user.phone}'),
-                              ],
+                            child: GestureDetector(
+                              onTap: () async{
+                                String uri = "tel:${data.user.phone}";
+                                if (await canLaunch(uri)) {
+                                  await launch(uri);
+                                }
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(OMIcons.phone, color: primary),
+                                  SizedBox(width: 10),
+                                  Text('${data.user.phone}'),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                            child: GestureDetector(
+                              onTap: () async {
+                                String uri = "mailto:${data.user.email}";
+                                if (await canLaunch(uri)) {
+                                  await launch(uri);
+                                }
+                              },
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(OMIcons.email, color: primary),
+                                  SizedBox(width: 10),
+                                  Text('${data.user.email}'),
+                                ],
+                              ),
                             ),
                           ),
                         ],

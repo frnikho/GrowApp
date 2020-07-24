@@ -6,6 +6,8 @@ import 'package:growapp/models/user.dart';
 
 import 'package:http/http.dart' as http;
 
+const String ip = "192.168.0.26";
+
 class AppData extends ChangeNotifier {
 
   User _user;
@@ -17,7 +19,7 @@ class AppData extends ChangeNotifier {
   }
 
   Future<List<Article>> loadSuggestionArticles() async {
-    http.Response response = await http.get('http://192.168.1.16:3030/articles/suggestion');
+    http.Response response = await http.get('http://$ip:3030/articles/suggestion');
     List<dynamic> json = jsonDecode(response.body);
     List<Article> article = [];
     json.forEach((element) {
@@ -28,7 +30,7 @@ class AppData extends ChangeNotifier {
   }
 
   Future<List<Article>> loadArticles() async {
-    http.Response response = await http.get('http://192.168.1.16:3030/articles');
+    http.Response response = await http.get('http://$ip:3030/articles');
     List<dynamic> json = jsonDecode(response.body);
     List<Article> article = [];
     json.forEach((element) {
