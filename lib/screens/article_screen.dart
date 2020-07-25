@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:growapp/models/article.dart';
 import 'package:growapp/models/article_type.dart';
+
+import 'package:growapp/utils.dart';
 
 class ArticleScreen extends StatelessWidget {
 
@@ -31,7 +32,7 @@ class ArticleScreen extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.blueAccent,
+                        color: article.primary,
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                       ),
                       child: Hero(
@@ -80,16 +81,20 @@ class ArticleScreen extends StatelessWidget {
                         ),
                         padding: EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Text("${getTypeName(article.type)}", style: GoogleFonts.almarai(color: Colors.deepPurple.withOpacity(0.6), fontSize: 17)),
+                        child: Text("${getTypeName(article.type).capitalize()}", style: GoogleFonts.almarai(color: Colors.deepPurple.withOpacity(0.6), fontSize: 17)),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Text("${article.name}", style: GoogleFonts.almarai(fontSize: 32, fontWeight: FontWeight.bold))
+                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        child: Text("${article.name}", style: GoogleFonts.almarai(fontSize: 28, fontWeight: FontWeight.bold))
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Text("${article.description}")
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child: Text("${article.description}")
+                          ),
+                        ),
                       )
                     ],
                   ),

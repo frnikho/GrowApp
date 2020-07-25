@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:growapp/models/app_data.dart';
 import 'package:growapp/models/article.dart';
 import 'package:growapp/widgets/store_bottom_navigation_bar.dart';
 import 'package:growapp/widgets/suggestion_slider.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -55,7 +55,12 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(width: 26),
                         CircleAvatar(
                           radius: 22,
-                          child: Icon(FontAwesomeIcons.tag, size: 16, color: Colors.black),
+                          child: GestureDetector(
+                            onTap: () {
+                              data.loadSuggestionArticles();
+                            },
+                            child: Icon(OMIcons.refresh, size: 16, color: Colors.black)
+                          ),
                           backgroundColor: Colors.black.withOpacity(0.05),
                         )
                       ],

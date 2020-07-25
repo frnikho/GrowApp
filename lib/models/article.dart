@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:growapp/utils.dart' as utils;
 import 'package:growapp/models/article_type.dart';
 
 const String ip = "192.168.0.26";
@@ -37,7 +38,7 @@ class Article {
       json['price'],
       json['quota'],
       getTypeFromName(json['type']),
-      Colors.blueAccent,
+      utils.getColorFromName(json['primary_color']),
       DateTime.parse(json['created_at']),
       DateTime.parse(json['updated_at']),
       "http://$ip:3030" + json['image_url']

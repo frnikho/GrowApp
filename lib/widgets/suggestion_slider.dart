@@ -55,7 +55,7 @@ class SuggestionCard extends StatelessWidget {
                 width: 250,
                 height: 220,
                 decoration: BoxDecoration(
-                    color: article.primary.withOpacity(0.8),
+                    color: article.primary,
                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15), topLeft: Radius.circular(15), topRight: Radius.circular(15))
                 ),
                 child: Hero(

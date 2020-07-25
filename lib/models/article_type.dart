@@ -1,4 +1,4 @@
-enum ArticleType {unknown, sativa, indica, ruderalis, hybrid}
+enum ArticleType {unknown, electronic, book, cooking, living, tools, music}
 
 String getTypeName(ArticleType type) {
   return type.toString().split('.')[1];
